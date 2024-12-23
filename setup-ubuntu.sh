@@ -333,17 +333,17 @@ sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
 sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
 
 ## WhiteSur Grub
-sudo ./grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
+sudo $SCRIPT_DIR/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
 cd WhiteSur-gtk-theme
 
 ## WhiteSur gtk
-sudo ./WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N stable --round -l --black --darker
+sudo $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N stable --round -l --black --darker
 
 ## WhiteSur Tweaks
-sudo ./WhiteSur-gtk-theme/tweaks.sh -o normal -c Dark -t blue -f monterey -b $SCRIPT_DIR/wallpaper/background.jpg -s
+sudo $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh -o normal -c Dark -t blue -f monterey -b $SCRIPT_DIR/wallpaper/background.jpg -s
 
 ## WhiteSur Icons
-sudo ./WhiteSur-icon-theme/install.sh -t default -a -b
+sudo $SCRIPT_DIR/WhiteSur-icon-theme/install.sh -t default -a -b
 sleep 3
 cd $SCRIPT_DIR
 
