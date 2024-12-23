@@ -311,28 +311,6 @@ echo "############################################"
 
 
 
-############################ Extensions ##################################
-
-## Make sure the directory for storing the user's shell extension exists.
-mkdir -p ~/.local/share/gnome-shell/extensions/
-
-## Move the shell extension to the correct directory.
-cp $SCRIPT_DIR/extensions/extensions.tar.xz ~/.local/share/gnome-shell/extensions/
-cd ~/.local/share/gnome-shell/extensions/
-tar -xvf extensions.tar.xz
-rm -rf extensions.tar.xz
-cd $SCRIPT_DIR
-
-
-
-
-############################ Fonts #######################################
-
-## Make sure the directory for storing the fonts exists.
-mkdir -p ~/.local/share/fonts
-
-## Copy fonts to the correct directory.
-cp -R ./fonts/* ~/.local/share/fonts
 
 ############################ Theme #######################################
 
