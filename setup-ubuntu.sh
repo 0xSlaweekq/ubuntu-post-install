@@ -43,7 +43,6 @@ sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repo
 # $(lsb_release -cs)
 # cd /etc/apt/sources.list.d
 # sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com `sudo apt update 2>&1 | grep -o '[0-9A-Z]\{16\}$' | xargs`
-
 sudo timedatectl set-local-rtc 1
 
 
