@@ -323,10 +323,10 @@ git clone -q https://github.com/vinceliuice/grub2-themes.git
 git clone -q https://github.com/vinceliuice/WhiteSur-gtk-theme.git
 git clone -q https://github.com/vinceliuice/WhiteSur-icon-theme.git
 
-sudo chmod +x ./grub2-themes/install.sh
-sudo chmod +x ./WhiteSur-gtk-theme/install.sh
-sudo chmod +x ./WhiteSur-gtk-theme/tweaks.sh
-sudo chmod +x ./WhiteSur-icon-theme/install.sh
+sudo chmod +x $SCRIPT_DIR/grub2-themes/install.sh
+sudo chmod +x $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh
+sudo chmod +x $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh
+sudo chmod +x $SCRIPT_DIR/WhiteSur-icon-theme/install.sh
 
 # wallpapers / backgrounds
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
