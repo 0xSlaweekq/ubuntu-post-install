@@ -337,21 +337,16 @@ sudo $SCRIPT_DIR/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
 cd WhiteSur-gtk-theme
 
 ## WhiteSur gtk
-sudo $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N stable --round -l --black --darker
+sudo $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N mojave \
+	--round --black --darker
 
 ## WhiteSur Tweaks
-sudo $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh -o normal -c Dark -t blue -f monterey -b $SCRIPT_DIR/wallpaper/background.jpg -s
+sudo $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue \
+	-F -c Dark -t blue
 
 ## WhiteSur Icons
 sudo $SCRIPT_DIR/WhiteSur-icon-theme/install.sh -t default -a -b
 sleep 3
-cd $SCRIPT_DIR
-
-## WhiteSur Icons
-echo -e "Installing WhiteSur Icons..."
-git clone -q https://github.com/vinceliuice/WhiteSur-icon-theme.git
-cd WhiteSur-icon-theme
-sudo ./install.sh
 cd $SCRIPT_DIR
 
 ## Load all settings

@@ -47,16 +47,19 @@ sudo cp -r /mnt/D/CRYPTO/setup/Linux/theme/wallpaper/* $HOME/.local/share/wallpa
 
 ## WhiteSur Grub
 sudo ./grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
-./WhiteSur-kde/install.sh -c dark
+
+sudo ./WhiteSur-kde/install.sh -c dark
 
 ## WhiteSur gtk
-sudo ./WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N stable --round -l --black --darker
+sudo ./WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N mojave \
+	--round --black --darker
 
 ## WhiteSur Icons
-./WhiteSur-icon-theme/install.sh -t default -a -b
+sudo ./WhiteSur-icon-theme/install.sh -t default -a -b
 
 ## WhiteSur Tweaks
-sudo ./WhiteSur-gtk-theme/tweaks.sh -o normal -c Dark -t blue -f monterey -b $SCRIPT_DIR/wallpaper/background.jpg -s
+sudo ./WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue \
+	-F -c Dark -t blue
 
 sudo ./McMojave-kde/sddm/5.0/install.sh
 sudo ./Monterey-kde/install.sh
@@ -93,5 +96,3 @@ echo '#################################################################'
 # latte spacer separator
 # Inline clock
 # big sur inline battery
-
-# sudo apt install -y gnome-tweaks gnome-shell-extensions && sudo gnome-tweaks
