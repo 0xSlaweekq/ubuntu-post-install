@@ -329,6 +329,8 @@ sudo chmod +x $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh
 sudo chmod +x $SCRIPT_DIR/WhiteSur-icon-theme/install.sh
 
 # wallpapers / backgrounds
+sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
+sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/backgrounds
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
 sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
 
