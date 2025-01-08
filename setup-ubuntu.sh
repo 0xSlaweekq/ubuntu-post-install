@@ -29,7 +29,6 @@ sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer
 sudo add-apt-repository -y ppa:atareao/telegram
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
 # sudo add-apt-repository -y ppa:obsproject/obs-studio
-sudo add-apt-repository -y ppa:papirus/papirus
 sudo add-apt-repository -y multiverse
 sudo add-apt-repository -y universe
 
