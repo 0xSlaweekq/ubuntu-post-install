@@ -42,8 +42,8 @@ sudo chmod +x ./McMojave-kde/sddm/5.0/install.sh
 # make -C dash-to-dock install
 
 # wallpapers / backgrounds
-sudo cp -r /mnt/D/CRYPTO/setup/Linux/theme/wallpaper/* /usr/share/wallpapers/
-sudo cp -r /mnt/D/CRYPTO/setup/Linux/theme/wallpaper/* $HOME/.local/share/wallpapers
+sudo cp -r /mnt/D/CRYPTO/ubuntu-post-install/wallpaper/* /usr/share/backgrounds/
+sudo cp -r /mnt/D/CRYPTO/ubuntu-post-install/wallpaper/* $HOME/.local/share/wallpapers
 
 ## WhiteSur Grub
 sudo ./grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b

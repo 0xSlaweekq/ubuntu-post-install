@@ -192,6 +192,9 @@ PROGRAMS_APT=(
     unrar
     zip
 
+	## For outline
+	libfuse2t64
+
     ## For Gnome
     gnome-browser-connector
     gnome-disk-utility
@@ -367,3 +370,19 @@ echo "############################################"
 echo -e "Changes will be applied after restarting the computer"
 
 echo -e "${GREEN}Done! Changes will be applied after reboot${C_OFF}"
+
+
+# sudo nano /etc/apparmor.d/outline-client
+# # This profile allows everything and only exists to give the
+# # application a name instead of having the label "unconfined"
+
+# abi <abi/4.0>,
+# include <tunables/global>
+
+# profile outlineclient /home/msi/Applications/Outline-Client_26d5e77d3783669d5cd6642e7d72f257.AppImage flags=(default_allow) {
+#   userns,
+
+#   # Site-specific additions and overrides. See local/README for details.
+#   include if exists <local/outline-client>
+# }
+# sudo systemctl reload apparmor.service
