@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# // !/usr/bin/env bash #####
 
 ##Color
 RED='\033[0;31m'
@@ -13,9 +15,6 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ## Ubuntu version (number)
 system="`lsb_release -rs`"
-
-## Active icon theme
-activeTheme=$(gsettings get org.gnome.desktop.interface icon-theme | tr -d "'")
 
 
 ########################## Programs ##################################
@@ -33,11 +32,15 @@ sudo add-apt-repository -y multiverse
 sudo add-apt-repository -y universe
 
 
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+# Adding keys
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
 # wget -q https://dl-ssl.google.com/linux/linux_signing_key.pub -O- | sudo apt-key add -
-# sudo add-apt-repository -y "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo add-apt-repository -y "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main"
+
+# Adding repos
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list'
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" >> /etc/apt/sources.list.d/microsoft-edge.list'
+# sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 
 # $(lsb_release -cs)
 # cd /etc/apt/sources.list.d
@@ -106,6 +109,17 @@ REMOVE_APT=(
     remmina*
 )
 
+## Remove bloatware
+echo -e "${BLUE}Removing bloatware...${C_OFF}"
+for program_name in ${REMOVE_APT[@]}; do
+	if dpkg -l | grep -q $program_name; then # If program is installed
+		echo -e "${YELLOW}	[REMOVING] - $program_name ${C_OFF}"
+
+		sudo apt remove "$program_name" -y -q
+	fi
+done
+echo -e "${GREEN}Bloatware removed${C_OFF}"
+
 ## Programs to be installed with apt
 PROGRAMS_APT=(
 	## System
@@ -151,7 +165,6 @@ PROGRAMS_APT=(
 
 	## CLI
 	git
-    git-core
     git-gui
     nano
 	htop
@@ -161,13 +174,6 @@ PROGRAMS_APT=(
 
 	## Fonts
 	fonts-firacode
-
-	## Gnome
-	chrome-gnome-shell
-	dconf-editor
-	gnome-shell-extensions
-    gnome-shell-extension-manager
-	gnome-tweaks
 
 	## Apps
     flatpak
@@ -180,10 +186,7 @@ PROGRAMS_APT=(
     microsoft-edge-stable
     code
     telegram
-	code
-	vlc
 	virtualbox
-    grub-customizer
     gparted
     unzip
     p7zip-rar
@@ -196,26 +199,16 @@ PROGRAMS_APT=(
 	libfuse2t64
 
     ## For Gnome
-    gnome-browser-connector
-    gnome-disk-utility
-    gnome-software-plugin-flatpak
-    gnome-shell-extension-manager
-    gnome-tweaks
-    chrome-gnome-shell
-
+    # gnome-browser-connector
+    # gnome-disk-utility
+    # gnome-software-plugin-flatpak
+    # gnome-shell-extension-manager
+    # gnome-tweaks
+    # chrome-gnome-shell
+	# dconf-editor
+	# gnome-shell-extensions
     ## plasma-discover-backend-flatpak
 )
-
-## Remove bloatware
-echo -e "${BLUE}Removing bloatware...${C_OFF}"
-for program_name in ${REMOVE_APT[@]}; do
-	if dpkg -l | grep -q $program_name; then # If program is installed
-		echo -e "${YELLOW}	[REMOVING] - $program_name ${C_OFF}"
-
-		sudo apt remove "$program_name" -y -q
-	fi
-done
-echo -e "${GREEN}Bloatware removed${C_OFF}"
 
 ## Install programs with apt
 echo -e "${BLUE}Installing programs with apt...${C_OFF}"
@@ -224,11 +217,11 @@ for program_name in ${PROGRAMS_APT[@]}; do
 		echo -e "${YELLOW}	[INSTALLING] - $program_name ${C_OFF}"
 
 		sudo apt install "$program_name" -y -q
+		sudo apt install -y --fix-broken --install-recommends
 	fi
 done
 
 # Just in case
-sudo apt install -y --fix-broken --install-recommends
 sudo apt install -y ./ocs-url_3.1.0-0ubuntu1_amd64.deb
 
 # Options for shell in vscode
@@ -250,6 +243,7 @@ flatpak install -y flathub \
   io.github.mimbrero.WhatsAppDesktop org.kde.isoimagewriter \
   com.github.sdv43.whaler org.onlyoffice.desktopeditors com.usebottles.bottles \
   com.github.Matoking.protontricks net.davidotek.pupgui2
+
   # com.obsproject.Studio com.github.d4nj1.tlpui \
   # com.getpostman.Postman io.dbeaver.DBeaverCommunity
   # net.lutris.Lutris com.playonlinux.PlayOnLinux4 org.audacityteam.Audacity
@@ -291,9 +285,7 @@ sudo apt autoclean
 sudo apt autoremove -y
 
 curl -L https://foundry.paradigm.xyz | bash
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
-fi
+. ~/.bashrc
 foundryup
 
 ## Checklist
@@ -311,24 +303,69 @@ echo "############################################"
 echo -e "${GREEN}System and Programs - Done${C_OFF}"
 echo "############################################"
 
+# # install qemu
+# sudo apt update
+# sudo apt install -y \
+#   cpu-checker bridge-utils libvirt-daemon-system libvirt-clients \
+#   virt-manager virtinst qemu-kvm
+# sudo adduser $USER libvirt
+# sudo adduser $USER kvm
+# sudo systemctl enable --now libvirtd
+# sudo systemctl start libvirtd
+# sudo systemctl status libvirtd
+# sudo usermod -aG kvm $USER
+# sudo usermod -aG libvirt $USER
+# virt-manager
 
+# # dotNet
+# sudo apt update && \
+#   sudo apt install -y \
+#   dotnet-sdk-8.0 aspnetcore-runtime-8.0 dotnet-runtime-8.0 zlib1g ca-certificates \
+#   libc6 libgcc-s1 libicu74 liblttng-ust1 libssl3 libstdc++6 libunwind8
+
+# cd ~
+# wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+# chmod +x ./dotnet-install.sh
+# ./dotnet-install.sh --channel 6.0
+# ./dotnet-install.sh --channel 7.0
+# ./dotnet-install.sh --version latest
+# rm ./dotnet-install.sh
 
 
 ############################ Theme #######################################
 
 ## Set dark mode
-gsettings set org.gnome.shell.ubuntu color-scheme prefer-dark
+# gsettings set org.gnome.shell.ubuntu color-scheme prefer-dark
 
 ## WhiteSur Theme
 echo -e "Installing WhiteSur Theme..."
+sudo apt install -y \
+  qt5-style-kvantum qt5-style-kvantum-themes sassc libglib2.0-dev-bin \
+  imagemagick dialog optipng x11-apps make extra-cmake-modules \
+  qtdeclarative5-dev libqt5x11extras5-dev libx11-dev libkf5plasma-dev \
+  libkf5iconthemes-dev libkf5windowsystem-dev libkf5declarative-dev \
+  libkf5xmlgui-dev libkf5activities-dev build-essential libxcb-util-dev \
+  gettext  git libkf5archive-dev libkf5notifications-dev \
+  libxcb-util0-dev libsm-dev libkf5crash-dev kirigami2-dev \
+  libkf5newstuff-dev libxcb-shape0-dev libxcb-randr0-dev libx11-xcb-dev \
+  libkf5wayland-dev libwayland-dev libwayland-client0 libqt5waylandclient5-dev \
+  qtwayland5-dev-tools plasma-wayland-protocols
+
 git clone -q https://github.com/vinceliuice/grub2-themes.git
 git clone -q https://github.com/vinceliuice/WhiteSur-gtk-theme.git
 git clone -q https://github.com/vinceliuice/WhiteSur-icon-theme.git
+
+git clone -q https://github.com/vinceliuice/WhiteSur-kde.git
+git clone -q https://github.com/vinceliuice/Monterey-kde.git
+git clone -q https://github.com/vinceliuice/McMojave-kde.git
 
 sudo chmod +x $SCRIPT_DIR/grub2-themes/install.sh
 sudo chmod +x $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh
 sudo chmod +x $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh
 sudo chmod +x $SCRIPT_DIR/WhiteSur-icon-theme/install.sh
+sudo chmod +x $SCRIPT_DIR/WhiteSur-kde/install.sh
+sudo chmod +x $SCRIPT_DIR/Monterey-kde/install.sh
+sudo chmod +x $SCRIPT_DIR/McMojave-kde/sddm/5.0/install.sh
 
 # wallpapers / backgrounds
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
@@ -338,7 +375,6 @@ sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
 
 ## WhiteSur Grub
 sudo $SCRIPT_DIR/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
-cd WhiteSur-gtk-theme
 
 ## WhiteSur gtk
 sudo $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N mojave \
@@ -350,6 +386,11 @@ sudo $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue \
 
 ## WhiteSur Icons
 sudo $SCRIPT_DIR/WhiteSur-icon-theme/install.sh -t default -a -b
+
+sudo $SCRIPT_DIR/WhiteSur-kde/install.sh -c dark
+sudo $SCRIPT_DIR/McMojave-kde/sddm/5.0/install.sh
+sudo $SCRIPT_DIR/Monterey-kde/install.sh
+
 sleep 3
 cd $SCRIPT_DIR
 
@@ -362,6 +403,29 @@ sudo rm -rf ./WhiteSur-icon-theme
 sudo rm -rf ./dash-to-dock
 sudo rm -rf ./_build
 sudo rm -rf ./dist
+
+sudo rm -rf ./WhiteSur-kde
+sudo rm -rf ./McMojave-kde
+sudo rm -rf ./Monterey-kde
+
+# Widgets
+# Application Tittle
+# Plasma Drawer
+# tiled menu
+# latte spacer separator
+# Inline clock
+# big sur inline battery
+
+echo '#################################################################'
+echo 'Read'
+echo '# https://www.linuxuprising.com/2020/10/whitesur-macos-big-sur-like-gtk-gnome.html'
+echo '# https://www.youtube.com/watch?v=DX_gQTQLUZc'
+echo 'Install Widgets'
+echo '# Application Tittle, Plasma Drawer, tiled menu, latte spacer'
+echo '# latte separator, Inline clock, big sur inline battery'
+echo '#################################################################'
+echo "Remove done"
+echo '#################################################################'
 
 echo
 echo "############################################"
