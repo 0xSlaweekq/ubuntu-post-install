@@ -154,7 +154,24 @@ sudo apt install -y libfuse2t64
 	# plasma-discover-backend-flatpak
 
 # Just in case
+echo "Downloading package keys and .deb files..."
+cd ~
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B05498B7
+# wget https://github.com/jgraph/drawio-desktop/releases/download/v24.5.3/drawio-amd64-24.5.3.deb
+# wget https://github.com/hiddify/hiddify-next/releases/download/v2.5.7/Hiddify-Debian-x64.deb
+wget https://github.com/TheAssassin/AppImageLauncher/releases/download/v2.2.0/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
+# wget https://download.anydesk.com/linux/anydesk_6.1.1-1_amd64.deb
+
 sudo apt install -y $SCRIPT_DIR/ocs-url_3.1.0-0ubuntu1_amd64.deb
+sudo apt install -y $HOME/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
+sudo apt install --fix-broken -y
+sudo apt install -y -f
+sudo systemctl daemon-reload
+
+echo "Cleaning up downloaded .deb files..."
+sudo rm -f \
+    $HOME/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
+    # $HOME/drawio-amd64-24.5.3.deb $HOME/Hiddify-Debian-x64.deb
 
 # Options for shell in vscode
 mkdir -p $HOME/.local/share/trusted.gpg.d
