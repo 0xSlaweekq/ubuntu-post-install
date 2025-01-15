@@ -11,8 +11,9 @@ C_OFF='\033[0m'        # Reset Color
 
 
 ## Get script directory
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR=/mnt/D/CRYPTO/ubuntu-post-install
 
+sudo apt install -y lsb-release
 ## Ubuntu version (number)
 system="`lsb_release -rs`"
 
@@ -114,115 +115,46 @@ echo -e "${BLUE}Removing bloatware...${C_OFF}"
 for program_name in ${REMOVE_APT[@]}; do
 	if dpkg -l | grep -q $program_name; then # If program is installed
 		echo -e "${YELLOW}	[REMOVING] - $program_name ${C_OFF}"
-
 		sudo apt remove "$program_name" -y -q
 	fi
 done
 echo -e "${GREEN}Bloatware removed${C_OFF}"
 
 ## Programs to be installed with apt
-PROGRAMS_APT=(
-	## System
-	ffmpeg
-	net-tools
-	ufw
-    software-properties-common
-    apt-transport-https
-    sassc
-    openssh-client
-    cpu-x
-    dpkg
-    gpg
-    make
-    cmake
-    build-essential
-    g++
-    gnupg
-    clang
-    dkms
-    ca-certificates
-    lsb-release
-    bash-completion
-    ubuntu-restricted-extras
-    ppa-purge
-    xz-utils
-    gcc-multilib
-    pkg-config
-    gdebi
-    gdebi-core
-    ninja-build
-    pass
-    dconf-cli
-    policykit-1
+## System
+sudo apt install -y ffmpeg net-tools ufw software-properties-common \
+	apt-transport-https sassc openssh-client cpu-x dpkg gpg make \
+	cmake build-essential g++ gnupg clang dkms ca-certificates \
+	lsb-release bash-completion ubuntu-restricted-extras ppa-purge \
+	xz-utils gcc-multilib pkg-config gdebi gdebi-core ninja-build \
+	pass dconf-cli policykit-1 fonts-firacode
 
-    ## Libs
-    libssl-dev
-    libcurl4-gnutls-dev
-    libexpat1-dev
-    libinih-dev
-    libdbus-1-dev
-    libsystemd-dev
+## Libs
+sudo apt install -y libssl-dev libcurl4-gnutls-dev libexpat1-dev \
+	libinih-dev libdbus-1-dev libsystemd-dev
 
-	## CLI
-	git
-    git-gui
-    nano
-	htop
-	neofetch
-    curl
-    wget
-
-	## Fonts
-	fonts-firacode
+## CLI
+sudo apt install -y git git-gui \
+    nano htop neofetch curl wget
 
 	## Apps
-    flatpak
-    krita
-    vlc
-    qbittorrent
-    libreoffice
-    sweeper
-    grub-customizer
-    microsoft-edge-stable
-    code
-    telegram
-	virtualbox
-    gparted
-    unzip
-    p7zip-rar
-    p7zip-full
-    rar
-    unrar
-    zip
+sudo apt install -y flatpak krita vlc qbittorrent libreoffice \
+	sweeper grub-customizer virtualbox gparted \
+	unzip p7zip-rar p7zip-full rar unrar zip \
+	microsoft-edge-stable code telegram
+sudo apt install -y --fix-broken --install-recommends
 
-	## For outline
-	libfuse2t64
+## For outline
+sudo apt install -y libfuse2t64
 
-    ## For Gnome
-    # gnome-browser-connector
-    # gnome-disk-utility
-    # gnome-software-plugin-flatpak
-    # gnome-shell-extension-manager
-    # gnome-tweaks
-    # chrome-gnome-shell
-	# dconf-editor
-	# gnome-shell-extensions
-    ## plasma-discover-backend-flatpak
-)
-
-## Install programs with apt
-echo -e "${BLUE}Installing programs with apt...${C_OFF}"
-for program_name in ${PROGRAMS_APT[@]}; do
-	if ! dpkg -l | grep -q $program_name; then # If program is not installed
-		echo -e "${YELLOW}	[INSTALLING] - $program_name ${C_OFF}"
-
-		sudo apt install "$program_name" -y -q
-		sudo apt install -y --fix-broken --install-recommends
-	fi
-done
+## For Gnome
+# sudo apt install -y  gnome-browser-connector gnome-disk-utility \
+# 	gnome-software-plugin-flatpak gnome-shell-extension-manager \
+# 	gnome-tweaks chrome-gnome-shell	dconf-editor gnome-shell-extensions
+	# plasma-discover-backend-flatpak
 
 # Just in case
-sudo apt install -y ./ocs-url_3.1.0-0ubuntu1_amd64.deb
+sudo apt install -y $SCRIPT_DIR/ocs-url_3.1.0-0ubuntu1_amd64.deb
 
 # Options for shell in vscode
 mkdir -p $HOME/.local/share/trusted.gpg.d
@@ -288,16 +220,6 @@ curl -L https://foundry.paradigm.xyz | bash
 . ~/.bashrc
 foundryup
 
-## Checklist
-echo -e "\nInstalled APT's:"
-for program_name in ${PROGRAMS_APT[@]}; do
-	if dpkg -l | grep -q $program_name; then
-		echo -e "	${GREEN}[INSTALLED] - $program_name ${C_OFF}"
-	else
-		echo -e "	${RED}[NOT INSTALLED] - $program_name ${C_OFF}"
-	fi
-done
-
 echo
 echo "############################################"
 echo -e "${GREEN}System and Programs - Done${C_OFF}"
@@ -351,21 +273,22 @@ sudo apt install -y \
   libkf5wayland-dev libwayland-dev libwayland-client0 libqt5waylandclient5-dev \
   qtwayland5-dev-tools plasma-wayland-protocols
 
-git clone -q https://github.com/vinceliuice/grub2-themes.git
-git clone -q https://github.com/vinceliuice/WhiteSur-gtk-theme.git
-git clone -q https://github.com/vinceliuice/WhiteSur-icon-theme.git
+cd ~
+git clone https://github.com/vinceliuice/grub2-themes.git
+git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
+git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
 
-git clone -q https://github.com/vinceliuice/WhiteSur-kde.git
-git clone -q https://github.com/vinceliuice/Monterey-kde.git
-git clone -q https://github.com/vinceliuice/McMojave-kde.git
+git clone https://github.com/vinceliuice/WhiteSur-kde.git
+git clone https://github.com/vinceliuice/Monterey-kde.git
+git clone https://github.com/vinceliuice/McMojave-kde.git
 
-sudo chmod +x $SCRIPT_DIR/grub2-themes/install.sh
-sudo chmod +x $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh
-sudo chmod +x $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh
-sudo chmod +x $SCRIPT_DIR/WhiteSur-icon-theme/install.sh
-sudo chmod +x $SCRIPT_DIR/WhiteSur-kde/install.sh
-sudo chmod +x $SCRIPT_DIR/Monterey-kde/install.sh
-sudo chmod +x $SCRIPT_DIR/McMojave-kde/sddm/5.0/install.sh
+sudo chmod +x $HOME/grub2-themes/install.sh
+sudo chmod +x $HOME/WhiteSur-gtk-theme/install.sh
+sudo chmod +x $HOME/WhiteSur-gtk-theme/tweaks.sh
+sudo chmod +x $HOME/WhiteSur-icon-theme/install.sh
+sudo chmod +x $HOME/WhiteSur-kde/install.sh
+sudo chmod +x $HOME/Monterey-kde/install.sh
+sudo chmod +x $HOME/McMojave-kde/sddm/5.0/install.sh
 
 # wallpapers / backgrounds
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
@@ -374,39 +297,37 @@ sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
 sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
 
 ## WhiteSur Grub
-sudo $SCRIPT_DIR/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
+sudo $HOME/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
 
 ## WhiteSur gtk
-sudo $SCRIPT_DIR/WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N mojave \
+sudo $HOME/WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N mojave \
 	--round --black --darker
 
 ## WhiteSur Tweaks
-sudo $SCRIPT_DIR/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue \
+sudo $HOME/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue \
 	-F -c Dark -t blue
 
 ## WhiteSur Icons
-sudo $SCRIPT_DIR/WhiteSur-icon-theme/install.sh -t default -a -b
+sudo $HOME/WhiteSur-icon-theme/install.sh -t default -a -b
 
-sudo $SCRIPT_DIR/WhiteSur-kde/install.sh -c dark
-sudo $SCRIPT_DIR/McMojave-kde/sddm/5.0/install.sh
-sudo $SCRIPT_DIR/Monterey-kde/install.sh
-
+sudo $HOME/WhiteSur-kde/install.sh -c dark
+sudo $HOME/McMojave-kde/sddm/5.0/install.sh
+sudo $HOME/Monterey-kde/install.sh
 sleep 3
-cd $SCRIPT_DIR
 
 ## Load all settings
 # dconf load / < dconf-backup.txt
 
-sudo rm -rf ./grub2-themes
-sudo rm -rf ./WhiteSur-gtk-theme
-sudo rm -rf ./WhiteSur-icon-theme
-sudo rm -rf ./dash-to-dock
-sudo rm -rf ./_build
-sudo rm -rf ./dist
+sudo rm -rf $HOME/grub2-themes
+sudo rm -rf $HOME/WhiteSur-gtk-theme
+sudo rm -rf $HOME/WhiteSur-icon-theme
+sudo rm -rf $HOME/dash-to-dock
+sudo rm -rf $HOME/_build
+sudo rm -rf $HOME/dist
 
-sudo rm -rf ./WhiteSur-kde
-sudo rm -rf ./McMojave-kde
-sudo rm -rf ./Monterey-kde
+sudo rm -rf $HOME/WhiteSur-kde
+sudo rm -rf $HOME/McMojave-kde
+sudo rm -rf $HOME/Monterey-kde
 
 # Widgets
 # Application Tittle
