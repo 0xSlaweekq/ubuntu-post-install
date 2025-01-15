@@ -60,66 +60,6 @@ sudo apt install --fix-broken -y
 sudo apt autoclean -y
 sudo apt autoremove --purge
 
-
-## Programs to be removed
-REMOVE_APT=(
-	firefox
-    yelp*
-    gnome-logs
-    seahorse
-    gnome-contacts
-    geary
-    gnome-weather
-    ibus-mozc
-    mozc-utils-gui
-    gucharmap
-    simple-scan
-    popsicle
-    popsicle-gtk
-    totem*
-    lm-sensors*
-    xfburn
-    xsane*
-    hv3
-    exfalso
-    parole
-    quodlibet
-    xterm
-    redshift*
-    drawing
-    hexchat*
-    thunderbird*
-    transmission*
-    transmission-gtk*
-    transmission-common*
-    webapp-manager
-    celluloid
-    hypnotix
-    rhythmbox*
-    librhythmbox-core10*
-    rhythmbox-data
-    mintbackup
-    mintreport
-    aisleriot
-    gnome-mahjongg
-    gnome-mines
-    quadrapassel
-    gnome-sudoku
-    pitivi
-    gnome-sound-recorder
-    remmina*
-)
-
-## Remove bloatware
-echo -e "${BLUE}Removing bloatware...${C_OFF}"
-for program_name in ${REMOVE_APT[@]}; do
-	if dpkg -l | grep -q $program_name; then # If program is installed
-		echo -e "${YELLOW}	[REMOVING] - $program_name ${C_OFF}"
-		sudo apt remove "$program_name" -y -q
-	fi
-done
-echo -e "${GREEN}Bloatware removed${C_OFF}"
-
 ## Programs to be installed with apt
 ## System
 sudo apt install -y ffmpeg net-tools ufw software-properties-common \
@@ -159,19 +99,15 @@ cd ~
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B05498B7
 # wget https://github.com/jgraph/drawio-desktop/releases/download/v24.5.3/drawio-amd64-24.5.3.deb
 # wget https://github.com/hiddify/hiddify-next/releases/download/v2.5.7/Hiddify-Debian-x64.deb
-wget https://github.com/TheAssassin/AppImageLauncher/releases/download/v2.2.0/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
+# wget https://raw.githubusercontent.com/0xSlaweekq/setup/main/Linux/theme/ocs-url_3.1.0-0ubuntu1_amd64.deb
+# wget https://github.com/TheAssassin/AppImageLauncher/releases/download/v2.2.0/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
 # wget https://download.anydesk.com/linux/anydesk_6.1.1-1_amd64.deb
 
 sudo apt install -y $SCRIPT_DIR/ocs-url_3.1.0-0ubuntu1_amd64.deb
-sudo apt install -y $HOME/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
+sudo apt install -y $SCRIPT_DIR/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
 sudo apt install --fix-broken -y
 sudo apt install -y -f
 sudo systemctl daemon-reload
-
-echo "Cleaning up downloaded .deb files..."
-sudo rm -f \
-    $HOME/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
-    # $HOME/drawio-amd64-24.5.3.deb $HOME/Hiddify-Debian-x64.deb
 
 # Options for shell in vscode
 mkdir -p $HOME/.local/share/trusted.gpg.d
@@ -299,13 +235,13 @@ git clone https://github.com/vinceliuice/WhiteSur-kde.git
 git clone https://github.com/vinceliuice/Monterey-kde.git
 git clone https://github.com/vinceliuice/McMojave-kde.git
 
-sudo chmod +x $HOME/grub2-themes/install.sh
-sudo chmod +x $HOME/WhiteSur-gtk-theme/install.sh
-sudo chmod +x $HOME/WhiteSur-gtk-theme/tweaks.sh
-sudo chmod +x $HOME/WhiteSur-icon-theme/install.sh
-sudo chmod +x $HOME/WhiteSur-kde/install.sh
-sudo chmod +x $HOME/Monterey-kde/install.sh
-sudo chmod +x $HOME/McMojave-kde/sddm/5.0/install.sh
+chmod +x $HOME/grub2-themes/install.sh
+chmod +x $HOME/WhiteSur-gtk-theme/install.sh
+chmod +x $HOME/WhiteSur-gtk-theme/tweaks.sh
+chmod +x $HOME/WhiteSur-icon-theme/install.sh
+chmod +x $HOME/WhiteSur-kde/install.sh
+chmod +x $HOME/Monterey-kde/install.sh
+chmod +x $HOME/McMojave-kde/sddm/5.0/install.sh
 
 # wallpapers / backgrounds
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
@@ -314,37 +250,37 @@ sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
 sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
 
 ## WhiteSur Grub
-sudo $HOME/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
+$HOME/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
+
+$HOME/WhiteSur-kde/install.sh -c dark
 
 ## WhiteSur gtk
-sudo $HOME/WhiteSur-gtk-theme/install.sh -c Dark -t all -m -N mojave \
-	--round --black --darker
-
-## WhiteSur Tweaks
-sudo $HOME/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue \
-	-F -c Dark -t blue
+$HOME/WhiteSur-gtk-theme/install.sh \
+	-c Dark -t all -m -N mojave --round --black --darker
 
 ## WhiteSur Icons
-sudo $HOME/WhiteSur-icon-theme/install.sh -t default -a -b
+$HOME/WhiteSur-icon-theme/install.sh -t default -a -b
 
-sudo $HOME/WhiteSur-kde/install.sh -c dark
+## WhiteSur Tweaks
+$HOME/WhiteSur-gtk-theme/tweaks.sh \
+	-c Dark -t blue -F -c Dark -t blue
+
 sudo $HOME/McMojave-kde/sddm/5.0/install.sh
-sudo $HOME/Monterey-kde/install.sh
+$HOME/Monterey-kde/install.sh
 sleep 3
 
 ## Load all settings
 # dconf load / < dconf-backup.txt
 
-sudo rm -rf $HOME/grub2-themes
-sudo rm -rf $HOME/WhiteSur-gtk-theme
-sudo rm -rf $HOME/WhiteSur-icon-theme
-sudo rm -rf $HOME/dash-to-dock
-sudo rm -rf $HOME/_build
-sudo rm -rf $HOME/dist
-
-sudo rm -rf $HOME/WhiteSur-kde
-sudo rm -rf $HOME/McMojave-kde
-sudo rm -rf $HOME/Monterey-kde
+rm -rf $HOME/grub2-themes
+rm -rf $HOME/WhiteSur-kde
+rm -rf $HOME/WhiteSur-gtk-theme
+rm -rf $HOME/WhiteSur-icon-theme
+rm -rf $HOME/dash-to-dock
+rm -rf $HOME/McMojave-kde
+rm -rf $HOME/Monterey-kde
+rm -rf $HOME/_build
+rm -rf $HOME/dist
 
 # Widgets
 # Application Tittle
@@ -354,6 +290,11 @@ sudo rm -rf $HOME/Monterey-kde
 # Inline clock
 # big sur inline battery
 
+cd /lib/firmware
+sudo wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/iwlwifi-so-a0-gf-a0-89.ucode
+sudo modprobe -r iwlwifi
+sudo modprobe iwlwifi
+sudo dmesg | grep iwlwifi
 echo '#################################################################'
 echo 'Read'
 echo '# https://www.linuxuprising.com/2020/10/whitesur-macos-big-sur-like-gtk-gnome.html'
@@ -371,8 +312,13 @@ echo -e "${GREEN}Theme - Done${C_OFF}"
 echo "############################################"
 echo -e "Changes will be applied after restarting the computer"
 
-echo -e "${GREEN}Done! Changes will be applied after reboot${C_OFF}"
-
+echo -e "${GREEN}Done! Changes will be applied after reboot${C_OFF}. Reboot now? (y/n)"
+read -r RESTART
+if [[ $RESTART == "y" || $RESTART == "Y" ]]; then
+    sudo reboot now
+else
+    echo "${GREEN}Done! Changes will be applied after reboot${C_OFF}"
+fi
 
 # sudo nano /etc/apparmor.d/outline-client
 # # This profile allows everything and only exists to give the

@@ -31,13 +31,13 @@ git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
 git clone https://github.com/vinceliuice/Monterey-kde.git
 git clone https://github.com/vinceliuice/McMojave-kde.git
 
-sudo chmod +x ./grub2-themes/install.sh
-sudo chmod +x ./WhiteSur-kde/install.sh
-sudo chmod +x ./WhiteSur-gtk-theme/install.sh
-sudo chmod +x ./WhiteSur-gtk-theme/tweaks.sh
-sudo chmod +x ./WhiteSur-icon-theme/install.sh
-sudo chmod +x ./Monterey-kde/install.sh
-sudo chmod +x ./McMojave-kde/sddm/5.0/install.sh
+chmod +x ./grub2-themes/install.sh
+chmod +x ./WhiteSur-kde/install.sh
+chmod +x ./WhiteSur-gtk-theme/install.sh
+chmod +x ./WhiteSur-gtk-theme/tweaks.sh
+chmod +x ./WhiteSur-icon-theme/install.sh
+chmod +x ./Monterey-kde/install.sh
+chmod +x ./McMojave-kde/sddm/5.0/install.sh
 
 # make -C dash-to-dock install
 
@@ -46,37 +46,37 @@ sudo cp -r /mnt/D/CRYPTO/ubuntu-post-install/wallpaper/* /usr/share/wallpapers/
 sudo cp -r /mnt/D/CRYPTO/ubuntu-post-install/wallpaper/* $HOME/.local/share/wallpapers
 
 ## WhiteSur Grub
-sudo ./grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
+./grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
 
-sudo ./WhiteSur-kde/install.sh -c dark
+./WhiteSur-kde/install.sh -c dark
 
 ## WhiteSur gtk
-sudo ./WhiteSur-gtk-theme/install.sh \
+./WhiteSur-gtk-theme/install.sh \
 	-c Dark -t all -m -N mojave --round --black --darker
 
 ## WhiteSur Icons
-sudo ./WhiteSur-icon-theme/install.sh -t default -a -b
+./WhiteSur-icon-theme/install.sh -t default -a -b
 
 ## WhiteSur Tweaks
-sudo ./WhiteSur-gtk-theme/tweaks.sh \
+./WhiteSur-gtk-theme/tweaks.sh \
 	-c Dark -t blue -F -c Dark -t blue
 
 sudo ./McMojave-kde/sddm/5.0/install.sh
-sudo ./Monterey-kde/install.sh
+./Monterey-kde/install.sh
 
 echo '#################################################################'
 echo 'Install done. Next Remove files'
 echo '#################################################################'
 
-sudo rm -rf ./grub2-themes
-sudo rm -rf ./WhiteSur-kde
-sudo rm -rf ./WhiteSur-gtk-theme
-sudo rm -rf ./WhiteSur-icon-theme
-sudo rm -rf ./dash-to-dock
-sudo rm -rf ./McMojave-kde
-sudo rm -rf ./Monterey-kde
-sudo rm -rf ./_build
-sudo rm -rf ./dist
+rm -rf ./grub2-themes
+rm -rf ./WhiteSur-kde
+rm -rf ./WhiteSur-gtk-theme
+rm -rf ./WhiteSur-icon-theme
+rm -rf ./dash-to-dock
+rm -rf ./McMojave-kde
+rm -rf ./Monterey-kde
+rm -rf ./_build
+rm -rf ./dist
 
 echo '#################################################################'
 echo 'Read'
