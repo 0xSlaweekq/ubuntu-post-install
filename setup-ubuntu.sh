@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 # // !/usr/bin/env bash #####
 
@@ -228,20 +228,19 @@ sudo apt install -y \
 
 cd ~
 git clone https://github.com/vinceliuice/grub2-themes.git
+git clone https://github.com/vinceliuice/MacVentura-kde.git
 git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
 git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
-
-git clone https://github.com/vinceliuice/WhiteSur-kde.git
-git clone https://github.com/vinceliuice/Monterey-kde.git
-git clone https://github.com/vinceliuice/McMojave-kde.git
+git clone https://github.com/vinceliuice/McMojave-cursors.git
 
 chmod +x $HOME/grub2-themes/install.sh
+chmod +x $HOME/MacVentura-kde/install.sh
 chmod +x $HOME/WhiteSur-gtk-theme/install.sh
 chmod +x $HOME/WhiteSur-gtk-theme/tweaks.sh
 chmod +x $HOME/WhiteSur-icon-theme/install.sh
-chmod +x $HOME/WhiteSur-kde/install.sh
-chmod +x $HOME/Monterey-kde/install.sh
-chmod +x $HOME/McMojave-kde/sddm/5.0/install.sh
+chmod +x $HOME/McMojave-cursors/install.sh
+chmod +x $HOME/McMojave-cursors/build.sh
+# make -C dash-to-dock install
 
 # wallpapers / backgrounds
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
@@ -252,33 +251,38 @@ sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
 ## WhiteSur Grub
 $HOME/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
 
-$HOME/WhiteSur-kde/install.sh -c dark
+## Global theme
+$HOME/MacVentura-kde/install.sh --round
 
 ## WhiteSur gtk
-$HOME/WhiteSur-gtk-theme/install.sh \
-	-c Dark -t all -m -N mojave --round --black --darker
+$HOME/WhiteSur-gtk-theme/install.sh -c Dark -t all -m --round --black --darker
 
 ## WhiteSur Icons
 $HOME/WhiteSur-icon-theme/install.sh -t default -a -b
 
 ## WhiteSur Tweaks
-$HOME/WhiteSur-gtk-theme/tweaks.sh \
-	-c Dark -t blue -F -c Dark -t blue
+$HOME/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue -F -c Dark -t blue
 
-sudo $HOME/McMojave-kde/sddm/5.0/install.sh
-$HOME/Monterey-kde/install.sh
+## McMojave cursors
+cd $HOME/McMojave-cursors
+./build.sh
+./install.sh
+cd ~
 sleep 3
 
 ## Load all settings
 # dconf load / < dconf-backup.txt
 
+echo '#################################################################'
+echo 'Install done. Next Remove files'
+echo '#################################################################'
+
 rm -rf $HOME/grub2-themes
-rm -rf $HOME/WhiteSur-kde
 rm -rf $HOME/WhiteSur-gtk-theme
 rm -rf $HOME/WhiteSur-icon-theme
 rm -rf $HOME/dash-to-dock
-rm -rf $HOME/McMojave-kde
-rm -rf $HOME/Monterey-kde
+rm -rf $HOME/MacVentura-kde
+rm -rf $HOME/McMojave-cursors
 rm -rf $HOME/_build
 rm -rf $HOME/dist
 

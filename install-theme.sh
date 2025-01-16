@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 echo 'Install WhiteSur KDE, GTK & ICON theme'
 echo '#################################################################'
@@ -11,6 +11,7 @@ sudo apt install -y ./ocs-url_3.1.0-0ubuntu1_amd64.deb
 sudo add-apt-repository -y ppa:papirus/papirus
 sudo apt update
 sudo apt dist-upgrade
+# sudo apt install qt6-style-kvantum qt6-style-kvantum-themes
 
 sudo apt install -y \
   qt5-style-kvantum qt5-style-kvantum-themes sassc libglib2.0-dev-bin \
@@ -25,20 +26,18 @@ sudo apt install -y \
   qtwayland5-dev-tools plasma-wayland-protocols
 
 git clone https://github.com/vinceliuice/grub2-themes.git
-git clone https://github.com/vinceliuice/WhiteSur-kde.git
+git clone https://github.com/vinceliuice/MacVentura-kde.git
 git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
 git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
-git clone https://github.com/vinceliuice/Monterey-kde.git
-git clone https://github.com/vinceliuice/McMojave-kde.git
+git clone https://github.com/vinceliuice/McMojave-cursors.git
 
 chmod +x ./grub2-themes/install.sh
-chmod +x ./WhiteSur-kde/install.sh
+chmod +x ./MacVentura-kde/install.sh
 chmod +x ./WhiteSur-gtk-theme/install.sh
 chmod +x ./WhiteSur-gtk-theme/tweaks.sh
 chmod +x ./WhiteSur-icon-theme/install.sh
-chmod +x ./Monterey-kde/install.sh
-chmod +x ./McMojave-kde/sddm/5.0/install.sh
-
+chmod +x ./McMojave-cursors/install.sh
+chmod +x ./McMojave-cursors/build.sh
 # make -C dash-to-dock install
 
 # wallpapers / backgrounds
@@ -48,33 +47,36 @@ sudo cp -r /mnt/D/CRYPTO/ubuntu-post-install/wallpaper/* $HOME/.local/share/wall
 ## WhiteSur Grub
 ./grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
 
-./WhiteSur-kde/install.sh -c dark
+## Global theme
+./MacVentura-kde/install.sh --round
 
 ## WhiteSur gtk
-./WhiteSur-gtk-theme/install.sh \
-	-c Dark -t all -m -N mojave --round --black --darker
+./WhiteSur-gtk-theme/install.sh -c Dark -t all -m --round --black --darker
 
 ## WhiteSur Icons
 ./WhiteSur-icon-theme/install.sh -t default -a -b
 
 ## WhiteSur Tweaks
-./WhiteSur-gtk-theme/tweaks.sh \
-	-c Dark -t blue -F -c Dark -t blue
+./WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue -F -c Dark -t blue
 
-sudo ./McMojave-kde/sddm/5.0/install.sh
-./Monterey-kde/install.sh
+## McMojave cursors
+cd ./McMojave-cursors
+./build.sh
+./install.sh
+cd ~
+sleep 3
 
 echo '#################################################################'
 echo 'Install done. Next Remove files'
 echo '#################################################################'
 
 rm -rf ./grub2-themes
-rm -rf ./WhiteSur-kde
 rm -rf ./WhiteSur-gtk-theme
 rm -rf ./WhiteSur-icon-theme
 rm -rf ./dash-to-dock
-rm -rf ./McMojave-kde
-rm -rf ./Monterey-kde
+rm -rf ./Wuthering-grub2-themes
+rm -rf ./MacVentura-kde
+rm -rf ./McMojave-cursors
 rm -rf ./_build
 rm -rf ./dist
 
