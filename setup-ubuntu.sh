@@ -36,6 +36,7 @@ sudo add-apt-repository -y universe
 # Adding keys
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+rm microsoft.gpg
 # wget -q https://dl-ssl.google.com/linux/linux_signing_key.pub -O- | sudo apt-key add -
 
 # Adding repos
@@ -77,7 +78,7 @@ sudo apt install -y libssl-dev libcurl4-gnutls-dev libexpat1-dev \
 sudo apt install -y git git-gui \
     nano htop neofetch curl wget
 
-	## Apps
+## Apps
 sudo apt install -y flatpak krita vlc qbittorrent libreoffice \
 	sweeper grub-customizer virtualbox gparted \
 	unzip p7zip-rar p7zip-full rar unrar zip \
@@ -215,7 +216,7 @@ echo "############################################"
 ## WhiteSur Theme
 echo -e "Installing WhiteSur Theme..."
 sudo apt install -y \
-  qt5-style-kvantum qt5-style-kvantum-themes sassc libglib2.0-dev-bin \
+  qt5-style-kvantum qt5-style-kvantum-themes libglib2.0-dev-bin \
   imagemagick dialog optipng x11-apps make extra-cmake-modules \
   qtdeclarative5-dev libqt5x11extras5-dev libx11-dev libkf5plasma-dev \
   libkf5iconthemes-dev libkf5windowsystem-dev libkf5declarative-dev \
@@ -243,6 +244,7 @@ chmod +x $HOME/McMojave-cursors/build.sh
 # make -C dash-to-dock install
 
 # wallpapers / backgrounds
+SCRIPT_DIR=/mnt/D/CRYPTO/ubuntu-post-install
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
 sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/backgrounds
 sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
