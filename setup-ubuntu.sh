@@ -94,6 +94,9 @@ sudo apt update
 sudo apt full-upgrade -y
 sudo apt install -y fprintd libpam-fprintd libfprint-2-dev \
 	libfido2-1 libpam-u2f
+sudo apt install --reinstall libssl3 \
+	libcrypto++-dev libcrypto++8 \
+	openssl libssl-dev
 pip install py-webauthn
 
 sudo sh -c 'echo "auth sufficient pam_fprintd.so max_tries=3" >> /etc/pam.d/common-auth'
