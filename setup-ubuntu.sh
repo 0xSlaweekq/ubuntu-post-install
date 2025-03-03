@@ -92,8 +92,12 @@ sudo apt install -y libfuse2t64
 sudo add-apt-repository ppa:3v1n0/libfprint
 sudo apt update
 sudo apt full-upgrade -y
-sudo apt install -y fprintd libpam-fprintd libfprint-2-dev
+sudo apt install -y fprintd libpam-fprintd libfprint-2-dev \
+	libfido2-1 libpam-u2f
+pip install py-webauthn
+
 sudo sh -c 'echo "auth sufficient pam_fprintd.so max_tries=3" >> /etc/pam.d/common-auth'
+
 
 ## For Gnome
 # sudo apt install -y  gnome-browser-connector gnome-disk-utility \
