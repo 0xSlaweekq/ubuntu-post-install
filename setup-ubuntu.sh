@@ -99,8 +99,12 @@ sudo apt install --reinstall libssl3 \
 	openssl libssl-dev
 pip install py-webauthn
 
-sudo sh -c 'echo "auth sufficient pam_fprintd.so max_tries=3" >> /etc/pam.d/common-auth'
+sudo sed -i '1s/^/auth sufficient pam_fprintd.so max_tries=3\n/' /etc/pam.d/common-auth
 
+sudo tee -a /etc/sddm.conf.d/kde_settings.conf <<< \
+"
+[Authentication]
+EnableFingerprintAuth=true"
 
 ## For Gnome
 # sudo apt install -y  gnome-browser-connector gnome-disk-utility \
