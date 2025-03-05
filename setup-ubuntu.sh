@@ -99,7 +99,7 @@ sudo apt install --reinstall libssl3 \
 	openssl libssl-dev
 pip install py-webauthn
 
-sudo sed -i '1s/^/auth sufficient pam_fprintd.so max_tries=3\n/' /etc/pam.d/common-auth
+sudo sed -i '1s/^/auth sufficient pam_fprintd.so\n/' /etc/pam.d/common-auth
 
 sudo tee -a /etc/sddm.conf.d/kde_settings.conf <<< \
 "
@@ -121,9 +121,9 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B05498B7
 # wget https://raw.githubusercontent.com/0xSlaweekq/setup/main/Linux/theme/ocs-url_3.1.0-0ubuntu1_amd64.deb
 # wget https://github.com/TheAssassin/AppImageLauncher/releases/download/v2.2.0/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
 # wget https://download.anydesk.com/linux/anydesk_6.1.1-1_amd64.deb
+# sudo apt install -y $SCRIPT_DIR/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
 
 sudo apt install -y $SCRIPT_DIR/ocs-url_3.1.0-0ubuntu1_amd64.deb
-sudo apt install -y $SCRIPT_DIR/appimagelauncher_2.2.0-travis995.0f91801.bionic_amd64.deb
 sudo apt install --fix-broken -y
 sudo apt install -y -f
 sudo systemctl daemon-reload
