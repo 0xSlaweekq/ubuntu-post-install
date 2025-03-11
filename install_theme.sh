@@ -1,20 +1,23 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
-echo 'Install WhiteSur KDE, GTK & ICON theme'
-echo '#################################################################'
+############################ Theme #######################################
 
 # https://www.opendesktop.org/p/1136805/
-cd ~
-wget https://raw.githubusercontent.com/0xSlaweekq/setup/main/Linux/theme/ocs-url_3.1.0-0ubuntu1_amd64.deb
-sudo apt install -y ./ocs-url_3.1.0-0ubuntu1_amd64.deb
+# cd ~
+# wget https://raw.githubusercontent.com/0xSlaweekq/setup/main/Linux/theme/ocs-url_3.1.0-0ubuntu1_amd64.deb
+# sudo apt install -y ./ocs-url_3.1.0-0ubuntu1_amd64.deb
+
+## Set dark mode
+# gsettings set org.gnome.shell.ubuntu color-scheme prefer-dark
 
 sudo add-apt-repository -y ppa:papirus/papirus
 sudo apt update
 sudo apt dist-upgrade
-# sudo apt install qt6-style-kvantum qt6-style-kvantum-themes
 
+## WhiteSur Theme
+echo -e "Installing WhiteSur Theme..."
 sudo apt install -y \
-  qt5-style-kvantum qt5-style-kvantum-themes sassc libglib2.0-dev-bin \
+  qt5-style-kvantum qt5-style-kvantum-themes libglib2.0-dev-bin \
   imagemagick dialog optipng x11-apps make extra-cmake-modules \
   qtdeclarative5-dev libqt5x11extras5-dev libx11-dev libkf5plasma-dev \
   libkf5iconthemes-dev libkf5windowsystem-dev libkf5declarative-dev \
@@ -25,60 +28,66 @@ sudo apt install -y \
   libkf5wayland-dev libwayland-dev libwayland-client0 libqt5waylandclient5-dev \
   qtwayland5-dev-tools plasma-wayland-protocols
 
+cd ~
 git clone https://github.com/vinceliuice/grub2-themes.git
 git clone https://github.com/vinceliuice/MacVentura-kde.git
 git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
 git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
 git clone https://github.com/vinceliuice/McMojave-cursors.git
 
-chmod +x ./grub2-themes/install.sh
-chmod +x ./MacVentura-kde/install.sh
-chmod +x ./WhiteSur-gtk-theme/install.sh
-chmod +x ./WhiteSur-gtk-theme/tweaks.sh
-chmod +x ./WhiteSur-icon-theme/install.sh
-chmod +x ./McMojave-cursors/install.sh
-chmod +x ./McMojave-cursors/build.sh
+chmod +x $HOME/grub2-themes/install.sh
+chmod +x $HOME/MacVentura-kde/install.sh
+chmod +x $HOME/WhiteSur-gtk-theme/install.sh
+chmod +x $HOME/WhiteSur-gtk-theme/tweaks.sh
+chmod +x $HOME/WhiteSur-icon-theme/install.sh
+chmod +x $HOME/McMojave-cursors/install.sh
+chmod +x $HOME/McMojave-cursors/build.sh
 # make -C dash-to-dock install
 
 # wallpapers / backgrounds
-sudo cp -r /mnt/D/CRYPTO/ubuntu-post-install/wallpaper/* /usr/share/wallpapers/
-sudo cp -r /mnt/D/CRYPTO/ubuntu-post-install/wallpaper/* $HOME/.local/share/wallpapers
+SCRIPT_DIR=/mnt/D/CRYPTO/ubuntu-post-install
+sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
+sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/backgrounds
+sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
+sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
 
 ## WhiteSur Grub
-./grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
+$HOME/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
 
 ## Global theme
-./MacVentura-kde/install.sh --round
+$HOME/MacVentura-kde/install.sh --round
 
 ## WhiteSur gtk
-./WhiteSur-gtk-theme/install.sh -c Dark -t all -m --round --black --darker
+$HOME/WhiteSur-gtk-theme/install.sh -c Dark -t all -m --round --black --darker
 
 ## WhiteSur Icons
-./WhiteSur-icon-theme/install.sh -t default -a -b
+$HOME/WhiteSur-icon-theme/install.sh -t default -a -b
 
 ## WhiteSur Tweaks
-./WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue -F -c Dark -t blue
+$HOME/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue -F -c Dark -t blue
 
 ## McMojave cursors
-cd ./McMojave-cursors
+cd $HOME/McMojave-cursors
 ./build.sh
 ./install.sh
 cd ~
 sleep 3
 
+## Load all settings
+# dconf load / < dconf-backup.txt
+
 echo '#################################################################'
 echo 'Install done. Next Remove files'
 echo '#################################################################'
 
-rm -rf ./grub2-themes
-rm -rf ./WhiteSur-gtk-theme
-rm -rf ./WhiteSur-icon-theme
-rm -rf ./dash-to-dock
-rm -rf ./Wuthering-grub2-themes
-rm -rf ./MacVentura-kde
-rm -rf ./McMojave-cursors
-rm -rf ./_build
-rm -rf ./dist
+rm -rf $HOME/grub2-themes
+rm -rf $HOME/WhiteSur-gtk-theme
+rm -rf $HOME/WhiteSur-icon-theme
+rm -rf $HOME/dash-to-dock
+rm -rf $HOME/MacVentura-kde
+rm -rf $HOME/McMojave-cursors
+rm -rf $HOME/_build
+rm -rf $HOME/dist
 
 echo '#################################################################'
 echo 'Read'

@@ -97,7 +97,7 @@ sudo apt install -y fprintd libpam-fprintd libfprint-2-dev \
 sudo apt install --reinstall libssl3 \
 	libcrypto++-dev libcrypto++8 \
 	openssl libssl-dev
-pip install py-webauthn
+# pip install py-webauthn
 
 sudo sed -i '1s/^/auth sufficient pam_fprintd.so\n/' /etc/pam.d/common-auth
 
@@ -144,13 +144,14 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/
 # Install Flatpak packages
 flatpak install -y flathub \
   com.discordapp.Discord com.github.tchx84.Flatseal \
-  io.github.mimbrero.WhatsAppDesktop org.kde.isoimagewriter \
-  com.github.sdv43.whaler org.onlyoffice.desktopeditors com.usebottles.bottles \
-  com.github.Matoking.protontricks net.davidotek.pupgui2
+  io.github.mimbrero.WhatsAppDesktop com.github.sdv43.whaler \
+  org.onlyoffice.desktopeditors com.usebottles.bottles \
+  com.github.Matoking.protontricks net.davidotek.pupgui2 \
+  io.dbeaver.DBeaverCommunity com.github.d4nj1.tlpui
 
   # com.obsproject.Studio com.github.d4nj1.tlpui \
-  # com.getpostman.Postman io.dbeaver.DBeaverCommunity
-  # net.lutris.Lutris com.playonlinux.PlayOnLinux4 org.audacityteam.Audacity
+  # com.getpostman.Postman net.lutris.Lutris \
+  # com.playonlinux.PlayOnLinux4 org.audacityteam.Audacity
 
 # Flatpak permissions
 sudo flatpak override --filesystem=/usr/lib/x86_64-linux-gnu/GL \
@@ -179,8 +180,9 @@ sudo apt install -y virtualbox-dkms xserver-xorg-core cpu-checker
 # Install Hysteria
 echo 'Installing Hysteria...'
 wget -q https://github.com/HyNetwork/hysteria/releases/download/v1.3.0/hysteria-linux-amd64
-chmod +x hysteria-linux-amd64
 sudo mv hysteria-linux-amd64 /usr/local/bin/hysteria
+sudo chmod +x /usr/local/bin/hysteria
+# TODO [FATA] [file:./config.json] [error:open ./config.json: no such file or directory] Failed to read configuration
 
 ## Remove junk and update
 echo -e "${YELLOW}Updating, upgrading and cleaning system...${C_OFF}"
@@ -225,110 +227,15 @@ echo "############################################"
 # ./dotnet-install.sh --version latest
 # rm ./dotnet-install.sh
 
-
-############################ Theme #######################################
-
-## Set dark mode
-# gsettings set org.gnome.shell.ubuntu color-scheme prefer-dark
-
-## WhiteSur Theme
-echo -e "Installing WhiteSur Theme..."
-sudo apt install -y \
-  qt5-style-kvantum qt5-style-kvantum-themes libglib2.0-dev-bin \
-  imagemagick dialog optipng x11-apps make extra-cmake-modules \
-  qtdeclarative5-dev libqt5x11extras5-dev libx11-dev libkf5plasma-dev \
-  libkf5iconthemes-dev libkf5windowsystem-dev libkf5declarative-dev \
-  libkf5xmlgui-dev libkf5activities-dev build-essential libxcb-util-dev \
-  gettext  git libkf5archive-dev libkf5notifications-dev \
-  libxcb-util0-dev libsm-dev libkf5crash-dev kirigami2-dev \
-  libkf5newstuff-dev libxcb-shape0-dev libxcb-randr0-dev libx11-xcb-dev \
-  libkf5wayland-dev libwayland-dev libwayland-client0 libqt5waylandclient5-dev \
-  qtwayland5-dev-tools plasma-wayland-protocols
-
-cd ~
-git clone https://github.com/vinceliuice/grub2-themes.git
-git clone https://github.com/vinceliuice/MacVentura-kde.git
-git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
-git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git
-git clone https://github.com/vinceliuice/McMojave-cursors.git
-
-chmod +x $HOME/grub2-themes/install.sh
-chmod +x $HOME/MacVentura-kde/install.sh
-chmod +x $HOME/WhiteSur-gtk-theme/install.sh
-chmod +x $HOME/WhiteSur-gtk-theme/tweaks.sh
-chmod +x $HOME/WhiteSur-icon-theme/install.sh
-chmod +x $HOME/McMojave-cursors/install.sh
-chmod +x $HOME/McMojave-cursors/build.sh
-# make -C dash-to-dock install
-
-# wallpapers / backgrounds
-SCRIPT_DIR=/mnt/D/CRYPTO/ubuntu-post-install
-sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/backgrounds/
-sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/backgrounds
-sudo cp -r $SCRIPT_DIR/wallpaper/* /usr/share/wallpapers/
-sudo cp -r $SCRIPT_DIR/wallpaper/* $HOME/.local/share/wallpapers
-
-## WhiteSur Grub
-$HOME/grub2-themes/install.sh -t whitesur -i whitesur -s 2k -b
-
-## Global theme
-$HOME/MacVentura-kde/install.sh --round
-
-## WhiteSur gtk
-$HOME/WhiteSur-gtk-theme/install.sh -c Dark -t all -m --round --black --darker
-
-## WhiteSur Icons
-$HOME/WhiteSur-icon-theme/install.sh -t default -a -b
-
-## WhiteSur Tweaks
-$HOME/WhiteSur-gtk-theme/tweaks.sh -c Dark -t blue -F -c Dark -t blue
-
-## McMojave cursors
-cd $HOME/McMojave-cursors
-./build.sh
-./install.sh
-cd ~
-sleep 3
-
-## Load all settings
-# dconf load / < dconf-backup.txt
-
-echo '#################################################################'
-echo 'Install done. Next Remove files'
-echo '#################################################################'
-
-rm -rf $HOME/grub2-themes
-rm -rf $HOME/WhiteSur-gtk-theme
-rm -rf $HOME/WhiteSur-icon-theme
-rm -rf $HOME/dash-to-dock
-rm -rf $HOME/MacVentura-kde
-rm -rf $HOME/McMojave-cursors
-rm -rf $HOME/_build
-rm -rf $HOME/dist
-
-# Widgets
-# Application Tittle
-# Plasma Drawer
-# tiled menu
-# latte spacer separator
-# Inline clock
-# big sur inline battery
+# curl -o- https://raw.githubusercontent.com/0xSlaweekq/ubuntu-post-install/main/install_theme.sh | bash
 
 cd /lib/firmware
 sudo wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/iwlwifi-so-a0-gf-a0-89.ucode
 sudo modprobe -r iwlwifi
 sudo modprobe iwlwifi
 sudo dmesg | grep iwlwifi
-echo '#################################################################'
-echo 'Read'
-echo '# https://www.linuxuprising.com/2020/10/whitesur-macos-big-sur-like-gtk-gnome.html'
-echo '# https://www.youtube.com/watch?v=DX_gQTQLUZc'
-echo 'Install Widgets'
-echo '# Application Tittle, Plasma Drawer, tiled menu, latte spacer'
-echo '# latte separator, Inline clock, big sur inline battery'
-echo '#################################################################'
-echo "Remove done"
-echo '#################################################################'
+cd -
+
 
 echo
 echo "############################################"
