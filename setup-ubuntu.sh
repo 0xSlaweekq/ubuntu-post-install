@@ -192,6 +192,9 @@ sudo mv hysteria-linux-amd64 /usr/local/bin/hysteria
 sudo chmod +x /usr/local/bin/hysteria
 # TODO [FATA] [file:./config.json] [error:open ./config.json: no such file or directory] Failed to read configuration
 
+curl -fsS -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
+sudo apt install -y mattermost-desktop
+
 ## Remove junk and update
 echo -e "${YELLOW}Updating, upgrading and cleaning system...${C_OFF}"
 sudo apt update && sudo apt dist-upgrade -y
