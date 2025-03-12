@@ -10,7 +10,7 @@
 ## Set dark mode
 # gsettings set org.gnome.shell.ubuntu color-scheme prefer-dark
 
-sudo add-apt-repository ppa:papirus/papirus
+sudo add-apt-repository -y ppa:papirus/papirus
 sudo apt update
 sudo apt dist-upgrade
 sudo apt install qt5-style-kvantum qt5-style-kvantum-themes
