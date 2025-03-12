@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ############################ Theme #######################################
 
@@ -10,21 +10,13 @@
 ## Set dark mode
 # gsettings set org.gnome.shell.ubuntu color-scheme prefer-dark
 
-sudo add-apt-repository -y ppa:papirus/papirus
+sudo add-apt-repository ppa:papirus/papirus
 sudo apt update
 sudo apt dist-upgrade
+sudo apt install qt5-style-kvantum qt5-style-kvantum-themes
 
-## WhiteSur Theme
 echo -e "Installing WhiteSur Theme..."
 sudo apt install -y \
-  qt5-style-kvantum qt5-style-kvantum-themes libglib2.0-dev-bin \
-  imagemagick dialog optipng x11-apps make extra-cmake-modules \
-  qtdeclarative5-dev libqt5x11extras5-dev libx11-dev libkf5plasma-dev \
-  libkf5iconthemes-dev libkf5windowsystem-dev libkf5declarative-dev \
-  libkf5xmlgui-dev libkf5activities-dev build-essential libxcb-util-dev \
-  gettext  git libkf5archive-dev libkf5notifications-dev \
-  libxcb-util0-dev libsm-dev libkf5crash-dev kirigami2-dev \
-  libkf5newstuff-dev libxcb-shape0-dev libxcb-randr0-dev libx11-xcb-dev \
   libkf5wayland-dev libwayland-dev libwayland-client0 libqt5waylandclient5-dev \
   qtwayland5-dev-tools plasma-wayland-protocols
 

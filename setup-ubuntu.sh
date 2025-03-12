@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # sudo sed -i -e 's/kernel-open$/kernel/g' /etc/nvidia/kernel.conf
 # echo "options nvidia-drm modeset=1 fbdev=1" | sudo tee /etc/modprobe.d/nvidia-modeset.conf
