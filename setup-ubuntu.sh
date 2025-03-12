@@ -154,7 +154,7 @@ flatpak install -y flathub \
   io.github.mimbrero.WhatsAppDesktop com.github.sdv43.whaler \
   org.onlyoffice.desktopeditors com.usebottles.bottles \
   com.github.Matoking.protontricks net.davidotek.pupgui2 \
-  com.github.d4nj1.tlpui
+  com.github.d4nj1.tlpui com.redis.RedisInsight
 
   # com.obsproject.Studio io.dbeaver.DBeaverCommunity \
   # com.getpostman.Postman net.lutris.Lutris \
