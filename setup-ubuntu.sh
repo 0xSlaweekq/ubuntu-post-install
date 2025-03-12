@@ -186,6 +186,7 @@ sudo apt install -y virtualbox-dkms xserver-xorg-core cpu-checker
 
 # Install Hysteria
 echo 'Installing Hysteria...'
+# bash <(curl -fsSL https://get.hy2.sh/)
 wget -q https://github.com/HyNetwork/hysteria/releases/download/v1.3.0/hysteria-linux-amd64
 sudo mv hysteria-linux-amd64 /usr/local/bin/hysteria
 sudo chmod +x /usr/local/bin/hysteria
