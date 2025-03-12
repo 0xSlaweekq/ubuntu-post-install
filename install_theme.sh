@@ -13,7 +13,7 @@
 sudo add-apt-repository -y ppa:papirus/papirus
 sudo apt update
 sudo apt dist-upgrade
-sudo apt install qt5-style-kvantum qt5-style-kvantum-themes
+sudo apt install -y qt5-style-kvantum qt5-style-kvantum-themes
 
 echo -e "Installing WhiteSur Theme..."
 sudo apt install -y \
