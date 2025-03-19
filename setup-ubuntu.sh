@@ -154,7 +154,9 @@ flatpak install -y flathub \
   io.github.mimbrero.WhatsAppDesktop com.github.sdv43.whaler \
   org.onlyoffice.desktopeditors com.usebottles.bottles \
   com.github.Matoking.protontricks net.davidotek.pupgui2 \
-  com.github.d4nj1.tlpui com.redis.RedisInsight
+  com.github.d4nj1.tlpui com.redis.RedisInsight \
+  com.mattermost.Desktop org.pgadmin.pgadmin4 \
+  io.dbeaver.DBeaverCommunity
 
   # com.obsproject.Studio io.dbeaver.DBeaverCommunity \
   # com.getpostman.Postman net.lutris.Lutris \
@@ -191,9 +193,6 @@ wget -q https://github.com/HyNetwork/hysteria/releases/download/v1.3.0/hysteria-
 sudo mv hysteria-linux-amd64 /usr/local/bin/hysteria
 sudo chmod +x /usr/local/bin/hysteria
 # TODO [FATA] [file:./config.json] [error:open ./config.json: no such file or directory] Failed to read configuration
-
-curl -fsS -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
-sudo apt install -y mattermost-desktop
 
 ## Remove junk and update
 echo -e "${YELLOW}Updating, upgrading and cleaning system...${C_OFF}"
