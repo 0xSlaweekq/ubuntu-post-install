@@ -73,20 +73,19 @@ sudo apt autoremove --purge
 sudo apt install -y ffmpeg net-tools ufw software-properties-common \
 	apt-transport-https sassc openssh-client cpu-x dpkg gpg make \
 	cmake build-essential g++ gnupg clang dkms ca-certificates \
-	lsb-release bash-completion ubuntu-restricted-extras ppa-purge \
+	lsb-release bash-completion fonts-firacode ppa-purge pass \
 	xz-utils gcc-multilib pkg-config gdebi gdebi-core ninja-build \
-	pass dconf-cli policykit-1 fonts-firacode
+	dconf-cli policykit-1
 
 ## Libs
 sudo apt install -y libssl-dev libcurl4-gnutls-dev libexpat1-dev \
 	libinih-dev libdbus-1-dev libsystemd-dev
 
 ## CLI
-sudo apt install -y git git-gui \
-    nano htop neofetch curl wget
+sudo apt install -y git git-gui nano htop neofetch curl wget
 
 ## Apps
-sudo apt install -y flatpak krita vlc qbittorrent libreoffice \
+sudo apt install -y flatpak krita vlc qbittorrent \
 	sweeper grub-customizer virtualbox gparted \
 	unzip p7zip-rar p7zip-full rar unrar zip \
 	microsoft-edge-stable code telegram
@@ -96,28 +95,27 @@ sudo apt install -y --fix-broken --install-recommends
 sudo apt install -y libfuse2t64
 
 ## For fingerprint
-sudo add-apt-repository ppa:3v1n0/libfprint
-sudo apt update
-sudo apt full-upgrade -y
-sudo apt install -y fprintd libpam-fprintd libfprint-2-dev \
-	libfido2-1 libpam-u2f
-sudo apt install --reinstall libssl3 \
-	libcrypto++-dev libcrypto++8 \
-	openssl libssl-dev
+# sudo add-apt-repository ppa:3v1n0/libfprint
+# sudo apt update
+# sudo apt full-upgrade -y
+# sudo apt install -y fprintd libpam-fprintd libfprint-2-dev \
+# 	libfido2-1 libpam-u2f
+# sudo apt install --reinstall libssl3 \
+# 	libcrypto++-dev libcrypto++8 \
+# 	openssl libssl-dev
 # pip install py-webauthn
 
-sudo sed -i '1s/^/auth sufficient pam_fprintd.so\n/' /etc/pam.d/common-auth
-
-sudo tee -a /etc/sddm.conf.d/kde_settings.conf <<< \
-"
-[Authentication]
-EnableFingerprintAuth=true"
+# sudo sed -i '1s/^/auth sufficient pam_fprintd.so\n/' /etc/pam.d/common-auth
+# sudo tee -a /etc/sddm.conf.d/kde_settings.conf <<< \
+# "
+# [Authentication]
+# EnableFingerprintAuth=true"
 
 ## For Gnome
-# sudo apt install -y  gnome-browser-connector gnome-disk-utility \
+# sudo apt install -y gnome-browser-connector gnome-disk-utility \
 # 	gnome-software-plugin-flatpak gnome-shell-extension-manager \
-# 	gnome-tweaks chrome-gnome-shell	dconf-editor gnome-shell-extensions
-	# plasma-discover-backend-flatpak
+# 	gnome-tweaks chrome-gnome-shell	dconf-editor gnome-shell-extensions \
+# 	plasma-discover-backend-flatpak
 
 # Just in case
 echo "Downloading package keys and .deb files..."
@@ -187,11 +185,11 @@ sudo adduser $(whoami) vboxusers
 sudo apt install -y virtualbox-dkms xserver-xorg-core cpu-checker
 
 # Install Hysteria
-echo 'Installing Hysteria...'
+# echo 'Installing Hysteria...'
 # bash <(curl -fsSL https://get.hy2.sh/)
-wget -q https://github.com/HyNetwork/hysteria/releases/download/v1.3.0/hysteria-linux-amd64
-sudo mv hysteria-linux-amd64 /usr/local/bin/hysteria
-sudo chmod +x /usr/local/bin/hysteria
+# wget -q https://github.com/HyNetwork/hysteria/releases/download/v1.3.0/hysteria-linux-amd64
+# sudo mv hysteria-linux-amd64 /usr/local/bin/hysteria
+# sudo chmod +x /usr/local/bin/hysteria
 # TODO [FATA] [file:./config.json] [error:open ./config.json: no such file or directory] Failed to read configuration
 
 ## Remove junk and update
@@ -260,18 +258,3 @@ if [[ $RESTART == "y" || $RESTART == "Y" ]]; then
 else
     echo "${GREEN}Done! Changes will be applied after reboot${C_OFF}"
 fi
-
-# sudo nano /etc/apparmor.d/outline-client
-# # This profile allows everything and only exists to give the
-# # application a name instead of having the label "unconfined"
-
-# abi <abi/4.0>,
-# include <tunables/global>
-
-# profile outlineclient /home/msi/Applications/Outline-Client_26d5e77d3783669d5cd6642e7d72f257.AppImage flags=(default_allow) {
-#   userns,
-
-#   # Site-specific additions and overrides. See local/README for details.
-#   include if exists <local/outline-client>
-# }
-# sudo systemctl reload apparmor.service
