@@ -151,7 +151,7 @@ flatpak install -y flathub \
   com.github.tchx84.Flatseal org.pgadmin.pgadmin4 \
   org.onlyoffice.desktopeditors net.davidotek.pupgui2 \
   com.github.sdv43.whaler com.redis.RedisInsight
-  
+
   # com.github.d4nj1.tlpui com.discordapp.Discord
   # io.github.mimbrero.WhatsAppDesktop com.mattermost.Desktop
   # io.dbeaver.DBeaverCommunity
