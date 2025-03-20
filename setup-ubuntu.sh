@@ -148,13 +148,13 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/
 
 # Install Flatpak packages
 flatpak install -y flathub \
-  com.discordapp.Discord com.github.tchx84.Flatseal \
+  com.github.tchx84.Flatseal org.pgadmin.pgadmin4 \
   org.onlyoffice.desktopeditors net.davidotek.pupgui2 \
-  com.github.sdv43.whaler com.redis.RedisInsight \
-  com.github.d4nj1.tlpui com.mattermost.Desktop \
-  org.pgadmin.pgadmin4 io.dbeaver.DBeaverCommunity
-
-  # io.github.mimbrero.WhatsAppDesktop
+  com.github.sdv43.whaler com.redis.RedisInsight
+  
+  # com.github.d4nj1.tlpui com.discordapp.Discord
+  # io.github.mimbrero.WhatsAppDesktop com.mattermost.Desktop
+  # io.dbeaver.DBeaverCommunity
   # com.usebottles.bottles com.github.Matoking.protontricks
   # com.obsproject.Studio \
   # com.getpostman.Postman net.lutris.Lutris \
@@ -182,7 +182,7 @@ sudo apt install -y virtualbox
 # sudo newgrp vboxusers
 sudo usermod -aG vboxusers $(whoami)
 sudo adduser $(whoami) vboxusers
-sudo apt install -y virtualbox-dkms xserver-xorg-core cpu-checker
+sudo apt install -y virtualbox-dkms cpu-checker
 
 # Install Hysteria
 # echo 'Installing Hysteria...'
