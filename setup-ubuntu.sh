@@ -244,6 +244,7 @@ sudo modprobe iwlwifi
 sudo dmesg | grep iwlwifi
 cd -
 
+sudo apt update && sudo apt install -y openjdk-17-jdk
 
 echo
 echo "############################################"
